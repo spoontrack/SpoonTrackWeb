@@ -1,0 +1,96 @@
+	<!DOCTYPE html>
+	<html>
+	<head>
+		<title>Map</title>
+			<link rel="stylesheet" href="style.css">
+			<script  type="text/javascript" src="data.js"></script>
+    		<script  type="text/javascript" src="MapCSS.js"></script>
+    		<script type="text/javascript" src="markerclusterer.js"></script>
+	</head>
+	<body>
+		
+			<h2><a href="index.html" >WETHERSPOONS TRACKER</a></h2>
+
+		<div class="nav">
+			<a href="Map.html" >Map</a>
+			<a href="Reviews.html" >Reviews</a>
+			<a href="Gallery.html" >Gallery</a>
+		</div>
+
+	<div id="map"></div>
+
+<script type="text/javascript">
+    function initMap() {
+
+  var map = new google.maps.Map(document.getElementById('map'), mapOptions );
+  var infoWin = new google.maps.InfoWindow();
+
+// Creates the marker, sets a listener for the info window
+  var markers = locations.map(function(location, i) {
+    var marker = new google.maps.Marker({
+      position: location,
+      icon:'Media/w.png',
+            map: map,
+    });
+    google.maps.event.addListener(marker, 'mouseover', function(evt) {
+      infoWin.setContent(location.info);
+      infoWin.open(map, marker);
+    })
+
+ google.maps.event.addListener(marker, 'mouseout', function(evt) {
+      infoWin.close(map, marker);
+    })
+    return marker;
+  });
+
+
+// Map Cluster settings and setup
+var mcOptions = {gridSize: 27, maxZoom: 40, 
+    styles: [{
+           height: 53,
+           url: "Media/m1.png",
+           width: 53,
+           textColor: "white",
+           textSize: 14,
+       }]};
+
+  var markerCluster = new MarkerClusterer(map, markers,mcOptions,);
+
+
+//Button events
+Kent.addEventListener('click', function() {
+      map.setZoom(10); 
+      map.setCenter(kent);  
+    });
+  London.addEventListener('click', function() {
+      map.setZoom(11.5); 
+      map.setCenter(london);  
+    });
+  Centre.addEventListener('click', function() {
+      map.setZoom(6); 
+      map.setCenter({lat:53.804564,lng:-2.581961});       
+    });
+  ESussex.addEventListener('click', function() {
+      map.setZoom(10); 
+      map.setCenter(eSussex);       
+    });
+}
+var locations = coords;
+
+</script>
+<p id="demo"></p>
+	    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDk1sCA0Y-kPQdY5n_hnSfjbAL0JNXM6tA&callback=initMap"> 
+      </script>
+
+	    <div class="buttons">
+	     <button id="Centre" class="button">Centre Map</button>
+	     <button id="Kent" class="button">Kent</button>
+	     <button id="London" class="button">London</button>
+	     <button id="ESussex" class="button">East Sussex</button>
+	    </div>
+
+
+
+	</body>
+	</html>
+
