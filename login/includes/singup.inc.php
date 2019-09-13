@@ -1,6 +1,6 @@
 <<?php 
 if (isset($_POST['singup-submit'])) {
-	
+
 	require 'dbh.inc.php';
 
 	$username = $_POST['uid'];
@@ -25,7 +25,7 @@ if (isset($_POST['singup-submit'])) {
 		exit();
 	}
 	else if ($password !== $passwordRepeat) {
-		header("Location: ../singup.php?error=passwordcheck&mails&uid=".$username."&mail=".$email);
+		header("Location: ../singup.php?error=passwordcheck&uid=".$username."&mail=".$email);
 		exit();
 	}
 	else {
